@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pure Masala · Special Masalas</title>
+
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+  <!-- Google Fonts (consistent) -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #faf7f2;
+      font-family: 'Inter', sans-serif;
+      color: #2c3e2c;
+    }
+
+    h1, h2, h3, .spice-title {
+      font-family: 'Playfair Display', serif;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    /* ----- NAVBAR (identical to whole site) ----- */
+    .navbar-custom {
+      background: linear-gradient(105deg, #1f4f2b 0%, #3b7a4a 100%);
+      padding: 14px 0;
+      box-shadow: 0 10px 25px -8px rgba(0,40,0,0.3);
+    }
+
+    .navbar-brand {
+      font-size: 1.9rem;
+      font-weight: 800;
+      color: #fff9e6 !important;
+      font-family: 'Playfair Display', serif;
+      letter-spacing: 1.2px;
+      text-shadow: 2px 2px 0 #1b3b1f;
+    }
+
+    .navbar-brand i {
+      color: #ffd966;
+      margin-right: 8px;
+      font-size: 2rem;
+      vertical-align: middle;
+    }
+
+    .navbar-custom .nav-link {
+      color: #f5f0e1 !important;
+      font-weight: 500;
+      margin: 0 12px;
+      position: relative;
+      transition: 0.2s;
+      font-size: 1.1rem;
+    }
+
+    .navbar-custom .nav-link::after {
+      content: "";
+      position: absolute;
+      width: 0%;
+      height: 2.5px;
+      background: #ffeb99;
+      left: 0;
+      bottom: -6px;
+      transition: 0.25s ease;
+      border-radius: 2px;
+    }
+
+    .navbar-custom .nav-link:hover::after {
+      width: 100%;
+    }
+
+    .navbar-custom .nav-link:hover {
+      color: #ffecaa !important;
+      transform: translateY(-1px);
+    }
+
+    .dropdown-menu {
+      border: none;
+      border-radius: 16px;
+      background: #ffffffec;
+      backdrop-filter: blur(6px);
+      box-shadow: 0 20px 35px -6px #1f3b1f;
+      padding: 8px;
+    }
+
+    .dropdown-item {
+      border-radius: 12px;
+      padding: 10px 20px;
+      font-weight: 500;
+      color: #1f4f2b;
+    }
+
+    .dropdown-item:hover {
+      background: #d9f0d2;
+      color: #0f3f1a;
+    }
+
+    
+    /* ----- PAGE HEADER (special masala) ----- */
+    .page-header {
+      background: linear-gradient(120deg, #f5e6d6, #f0ebd8);
+      padding: 40px 0 30px;
+      margin-bottom: 40px;
+      border-bottom: 5px solid #eab53a;
+    }
+
+    .spice-title {
+      font-size: 3.2rem;
+      color: #1f4f2b;
+      position: relative;
+      display: inline-block;
+    }
+
+    .spice-title:after {
+      content: '';
+      display: block;
+      width: 80px;
+      height: 4px;
+      background: #eab53a;
+      margin: 10px auto 0;
+      border-radius: 4px;
+    }
+
+    .subhead {
+      color: #4f6b4a;
+      font-size: 1.2rem;
+      font-weight: 400;
+    }
+
+    /* ----- PRODUCT CARDS (uniform size) ----- */
+    .spice-card {
+      border: none;
+      border-radius: 28px 12px 28px 12px;
+      overflow: hidden;
+      background: #ffffff;
+      transition: all 0.3s cubic-bezier(0.15,0.75,0.5,1);
+      box-shadow: 0 15px 30px -12px rgba(30,60,30,0.2);
+      position: relative;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .spice-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 25px 40px -8px #1f4f2b80;
+    }
+
+    .spice-card img {
+      height: 300px;
+      width: 100%;
+      object-fit: cover;
+      border-bottom: 3px solid #f0ddaa;
+      transition: 0.4s;
+    }
+
+    .spice-card:hover img {
+      transform: scale(1.03);
+    }
+
+    .card-body {
+      padding: 1.5rem 1rem 1.2rem;
+      background: white;
+      flex: 1;
+    }
+
+    .card-title {
+      font-weight: 700;
+      font-size: 1.3rem;
+      margin-bottom: 8px;
+      color: #1f4f2b;
+      min-height: 3.2rem;
+    }
+
+    .rating i {
+      color: #f5b342;
+      font-size: 0.95rem;
+    }
+
+    .rating span {
+      color: #6d7f6d;
+      margin-left: 6px;
+      font-size: 0.9rem;
+    }
+
+    .price {
+      font-weight: 800;
+      color: #1f5f2a;
+      font-size: 1.7rem;
+      line-height: 1.2;
+      display: block;
+    }
+
+    .price small {
+      font-size: 1rem;
+      font-weight: 500;
+      color: #a1b59b;
+      text-decoration: line-through;
+      margin-left: 6px;
+    }
+    
+    .btn-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      cursor: pointer;
+      transition: 0.2s;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      border: none;
+    }
+
+    .btn-cart {
+      background: #1f5a2a;
+      color: white;
+    }
+
+    .btn-cart:hover {
+      background: #eab53a;
+      color: #1f3f1f;
+      transform: scale(1.12) rotate(2deg);
+    }
+
+    .btn-wishlist {
+      background: #f1d5b5;
+      color: #9b4b2c;
+    }
+
+    .btn-wishlist:hover {
+      background: #eab53a;
+      color: #4f2f1a;
+      transform: scale(1.12);
+    }
+
+    .card-actions {
+      display: flex;
+      justify-content: space-between;
+      padding: 0 1rem 1rem 1rem;
+      border-top: 1px solid #f0e8d5;
+      margin-top: auto;
+    }
+
+    /* ----- FOOTER (rich, refined, matches brand) ----- */
+    .footer {
+      background: #1e3e1e;
+      color: #ede7d5;
+      padding-top: 60px;
+      padding-bottom: 25px;
+      border-top: 8px solid #ce9f4b;
+    }
+
+    .footer h5 {
+      color: #fad791;
+      font-size: 1.4rem;
+      margin-bottom: 1.5rem;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+      border-left: 4px solid #d9a149;
+      padding-left: 15px;
+    }
+
+    .footer a {
+      color: #cfd7b5;
+      text-decoration: none;
+      transition: 0.2s;
+      display: inline-block;
+    }
+
+    .footer a:hover {
+      color: #fce2a9;
+      transform: translateX(4px);
+    }
+
+    .footer ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .footer ul li {
+      margin-bottom: 12px;
+    }
+
+    .footer ul li i {
+      color: #c79d4c;
+      margin-right: 8px;
+      font-size: 0.75rem;
+    }
+
+    .social-icons a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 40px;
+      width: 40px;
+      background: #335533;
+      border-radius: 50%;
+      margin-right: 10px;
+      color: #ffeec9;
+      font-size: 1.2rem;
+      transition: 0.2s;
+    }
+
+    .social-icons a:hover {
+      background: #dba953;
+      color: #1b4b1b;
+      transform: scale(1.1);
+    }
+
+    .copyright {
+      border-top: 1px solid #466a46;
+      padding-top: 20px;
+      margin-top: 30px;
+      color: #b7bda0;
+      font-size: 0.9rem;
+    }
+
+    .copyright i.fa-heart {
+      color: #f3716b;
+    }
+
+    .footer .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+      color: #e3ddc4;
+    }
+
+    .footer .contact-item i {
+      width: 22px;
+      color: #e5b765;
+      font-size: 1.2rem;
+    }
+    
+    @media (max-width: 768px) {
+      .spice-title {
+        font-size: 2.4rem;
+      }
+      .cart-badge {
+        top: 12px;
+        right: 12px;
+        padding: 8px 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ==================== NAVBAR ==================== -->
+<nav class="navbar navbar-expand-lg navbar-custom sticky-top">
+  <div class="container">
+    <!-- Logo (Left) -->
+    <a class="navbar-brand" href="index.html">
+      PURE MASALA
+    </a>
+
+    <button class="navbar-toggler bg-light" type="button"
+      data-bs-toggle="collapse" data-bs-target="#navMenu">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navMenu">
+      <!-- CENTER NAV LINKS -->
+      <ul class="navbar-nav mx-auto align-items-center text-center">
+        <li class="nav-item">
+          <a class="nav-link" href="index.html">
+            Home
+          </a>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+            Spices
+          </a>
+          <ul class="dropdown-menu text-center">
+            <li><a class="dropdown-item" href="wholespicess.html">Whole Spices</a></li>
+            <li><a class="dropdown-item" href="groundspices.html">Ground Spices</a></li>
+            <li><a class="dropdown-item" href="specialmasala.html">Special Masalas</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="about.html">
+            About
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="contact.html">
+            Contact
+          </a>
+        </li>
+      </ul>
+
+       <!-- RIGHT SIDE ICONS -->
+    <div class="d-flex flex-column flex-lg-row align-items-center justify-content-lg-end gap-3 mt-3 mt-lg-0">
+
+        <!-- Login Icon -->
+        <a href="login.html" class="nav-link">
+          <i class="fas fa-user fs-5"></i>
+        </a>
+
+        <!-- Wishlist Icon -->
+        <a href="wishlist.html" class="nav-link position-relative">
+          <i class="fas fa-heart fs-5"></i>
+          <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                id="wishlist-count">
+            0
+          </span>
+        </a>
+
+        <!-- Cart Icon -->
+        <a href="cart.html" class="nav-link position-relative">
+          <i class="fas fa-shopping-bag fs-5"></i>
+          <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning text-dark"
+                id="cart-count">
+            0
+          </span>
+        </a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- ==================== PAGE HEADER ==================== -->
+<section class="page-header">
+  <div class="container text-center">
+    <h1 class="spice-title">Special Masalas</h1>
+    <p class="subhead">Signature blends · crafted by master chefs · aromatic & bold</p>
+  </div>
+</section>
+
+<!-- ==================== PRODUCT GRID ==================== -->
+<section class="pb-4">
+  <div class="container">
+    <div class="row g-4">
+
+      <!-- 1. Chicken Masala -->
+      <div class="col-lg-3 col-md-4 col-sm-6">
+        <div class="spice-card">
+          <img src="image14.jpg" alt="Chicken Masala"
+            onerror="this.src='https://images.unsplash.com/photo-1615485290384-1c4b89c3bcf1?q=80&w=1974&auto=format&fit=crop'">
+          <div class="card-body">
+            <h5 class="card-title">Chicken Masala</h5>
+            <div class="rating mb-2">
+              <i class="fas fa-star text-warning"></i>
+              <i class="fas fa-star text-warning"></i>
+              <i class="fas fa-star text-warning"></i>
+              <i class="fas fa-star text-warning"></i>
+              <i class="fas fa-star-half-alt text-warning"></i>
+              <span>(4.5)</span>
+            </div>
+            <span class="price">₹160 <small>₹200</small></span>
+          </div>
+          <div class="card-actions">
+            <button class="btn-icon btn-cart" onclick="addToCart('Chicken Masala', 160, 'image14.jpg')">
+              <i class="fas fa-shopping-cart"></i>
+            </button>
+            <button class="btn-icon btn-wishlist" onclick="addToWishlist('Chicken Masala', 160, 'image14.jpg')">
+              <i class="fas fa-heart"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. Meat Masala -->
+      <div class="col-lg-3 col-md-4 col-sm-6">
+        <div class="spice-card">
+          <img src="image15.jpg" alt="Meat Masala"
+            onerror="this.src='https://images.unsplash.com/photo-1615485290533-2a3c7a3b0b3d?q=80&w=1974&auto=format&fit=crop'">
+          <div class="card-body">
+            <h5 class="card-title">Meat Masala</h5>
+            <div class="rating mb-2">
+              <i class="fas fa-star text-warning"></i>
+              <i class="fas fa-star text-warning"></i>
+              <i class="fas fa-star text-warning"></i>
+              <i class="fas fa-star text-warning"></i>
+              <i class="fas fa-star text-warning"></i>
+              <span>(5.0)</span>
+            </div>
+            <span class="price">₹170 <small>₹210</small></span>
+          </div>
+          <div class="card-actions">
+            <button class="btn-icon btn-cart" onclick="addToCart('Meat Masala', 170, 'image15.jpg')">
+              <i class="fas fa-shopping-cart"></i>
+            </button>
+            <button class="btn-icon btn-wishlist" onclick="addToWishlist('Meat Masala', 170, 'image15.jpg')">
+              <i class="fas fa-heart"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. Fish Masala -->
+      <div class="col-lg-3 col-md-4 col-sm-6">
+        <div class="spice-card">
+          <img src="image16.jpg" alt="Fish Masala"
+            onerror="this.src='https://images.unsplash.com/photo-1615485290538-3a2c7f3a0b3d?q=80&w=1974&auto=format&fit=crop'">
+          <div class="card-body">
+            <h5 class="card-title">Fish Masala</h5>
+            <div class="rating mb-2">
+              <i class="fas fa-star text-warning"></i>
+              <i class="fas fa-star text-warning"></i>
+              <i class="fas fa-star text-warning"></i>
+              <i class="fas fa-star-half-alt text-warning"></i>
+              <i class="far fa-star text-warning"></i>
+              <span>(3.5)</span>
+            </div>
+            <span class="price">₹150 <small>₹180</small></span>
+          </div>
+          <div class="card-actions">
+            <button class="btn-icon btn-cart" onclick="addToCart('Fish Masala', 150, 'image16.jpg')">
+              <i class="fas fa-shopping-cart"></i>
+            </button>
+            <button class="btn-icon btn-wishlist" onclick="addToWishlist('Fish Masala', 150, 'image16.jpg')">
+              <i class="fas fa-heart"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. Biryani Masala -->
+      <div class="col-lg-3 col-md-4 col-sm-6">
+        <div class="spice-card">
+          <img src="image17.jpg" alt="Biryani Masala"
+            onerror="this.src='https://images.unsplash.com/photo-1615485290608-1f4c3a4b1a2b?q=80&w=1974&auto=format&fit=crop'">
+          <div class="card-body">
+            <h5 class="card-title">Biryani Masala</h5>
+            <div class="rating mb-2">
+              <i class="fas fa-star text-warning"></i>
+              <i class="fas fa-star text-warning"></i>
+              <i class="fas fa-star text-warning"></i>
+              <i class="fas fa-star text-warning"></i>
+              <i class="fas fa-star text-warning"></i>
+              <span>(5.0)</span>
+            </div>
+            <span class="price">₹190 <small>₹240</small></span>
+          </div>
+          <div class="card-actions">
+            <button class="btn-icon btn-cart" onclick="addToCart('Biryani Masala', 190, 'image17.jpg')">
+              <i class="fas fa-shopping-cart"></i>
+            </button>
+            <button class="btn-icon btn-wishlist" onclick="addToWishlist('Biryani Masala', 190, 'image17.jpg')">
+              <i class="fas fa-heart"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5. Special Garam Masala -->
+      <div class="col-lg-3 col-md-4 col-sm-6">
+        <div class="spice-card">
+          <img src="image18.jpg" alt="Special Garam Masala"
+            onerror="this.src='https://images.unsplash.com/photo-1596090905105-65d4b8f73849?q=80&w=1974&auto=format&fit=crop'">
+          <div class="card-body">
+            <h5 class="card-title">Special Garam Masala</h5>
+            <div class="rating mb-2">
+              <i class="fas fa-star text-warning"></i>
+              <i class="fas fa-star text-warning"></i>
+              <i class="fas fa-star text-warning"></i>
+              <i class="fas fa-star text-warning"></i>
+              <i class="fas fa-star-half-alt text-warning"></i>
+              <span>(4.8)</span>
+            </div>
+            <span class="price">₹120 <small>₹170</small></span>
+          </div>
+          <div class="card-actions">
+            <button class="btn-icon btn-cart" onclick="addToCart('Special Garam Masala', 120, 'image18.jpg')">
+              <i class="fas fa-shopping-cart"></i>
+            </button>
+            <button class="btn-icon btn-wishlist" onclick="addToWishlist('Special Garam Masala', 120, 'image18.jpg')">
+              <i class="fas fa-heart"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 6. Tandoori Masala -->
+      <div class="col-lg-3 col-md-4 col-sm-6">
+        <div class="spice-card">
+          <img src="image19.jpg" alt="Tandoori Masala"
+            onerror="this.src='https://images.unsplash.com/photo-1615485290533-2a3c7a3b0b3d?q=80&w=1974&auto=format&fit=crop'">
+          <div class="card-body">
+            <h5 class="card-title">Tandoori Masala</h5>
+            <div class="rating mb-2">
+              <i class="fas fa-star text-warning"></i>
+              <i class="fas fa-star text-warning"></i>
+              <i class="fas fa-star text-warning"></i>
+              <i class="fas fa-star text-warning"></i>
+              <i class="fas fa-star text-warning"></i>
+              <span>(4.9)</span>
+            </div>
+            <span class="price">₹175 <small>₹220</small></span>
+          </div>
+          <div class="card-actions">
+            <button class="btn-icon btn-cart" onclick="addToCart('Tandoori Masala', 175, 'image19.jpg')">
+              <i class="fas fa-shopping-cart"></i>
+            </button>
+            <button class="btn-icon btn-wishlist" onclick="addToWishlist('Tandoori Masala', 175, 'image19.jpg')">
+              <i class="fas fa-heart"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 7. Sambhar Masala -->
+      <div class="col-lg-3 col-md-4 col-sm-6">
+        <div class="spice-card">
+          <img src="image20.jpg" alt="Sambhar Masala"
+            onerror="this.src='https://images.unsplash.com/photo-1615485290538-3a2c7f3a0b3d?q=80&w=1974&auto=format&fit=crop'">
+          <div class="card-body">
+            <h5 class="card-title">Sambhar Masala</h5>
+            <div class="rating mb-2">
+              <i class="fas fa-star text-warning"></i>
+              <i class="fas fa-star text-warning"></i>
+              <i class="fas fa-star text-warning"></i>
+              <i class="fas fa-star text-warning"></i>
+              <i class="fas fa-star-half-alt text-warning"></i>
+              <span>(4.6)</span>
+            </div>
+            <span class="price">₹135 <small>₹165</small></span>
+          </div>
+          <div class="card-actions">
+            <button class="btn-icon btn-cart" onclick="addToCart('Sambhar Masala', 135, 'image20.jpg')">
+              <i class="fas fa-shopping-cart"></i>
+            </button>
+            <button class="btn-icon btn-wishlist" onclick="addToWishlist('Sambhar Masala', 135, 'image20.jpg')">
+              <i class="fas fa-heart"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 8. Chole Masala -->
+      <div class="col-lg-3 col-md-4 col-sm-6">
+        <div class="spice-card">
+          <img src="image21.jpg" alt="Chole Masala"
+            onerror="this.src='https://images.unsplash.com/photo-1615485290538-3a2c7f3a0b3d?q=80&w=1974&auto=format&fit=crop'">
+          <div class="card-body">
+            <h5 class="card-title">Chole Masala</h5>
+            <div class="rating mb-2">
+              <i class="fas fa-star text-warning"></i>
+              <i class="fas fa-star text-warning"></i>
+              <i class="fas fa-star text-warning"></i>
+              <i class="fas fa-star text-warning"></i>
+              <i class="fas fa-star text-warning"></i>
+              <span>(5.0)</span>
+            </div>
+            <span class="price">₹145 <small>₹180</small></span>
+          </div>
+          <div class="card-actions">
+            <button class="btn-icon btn-cart" onclick="addToCart('Chole Masala', 145, 'image21.jpg')">
+              <i class="fas fa-shopping-cart"></i>
+            </button>
+            <button class="btn-icon btn-wishlist" onclick="addToWishlist('Chole Masala', 145, 'image21.jpg')">
+              <i class="fas fa-heart"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 9. Pickle Powder -->
+      <div class="col-lg-3 col-md-4 col-sm-6">
+        <div class="spice-card">
+          <img src="image22.jpg" alt="Pickle Powder"
+            onerror="this.src='https://images.unsplash.com/photo-1615485290538-3a2c7f3a0b3d?q=80&w=1974&auto=format&fit=crop'">
+          <div class="card-body">
+            <h5 class="card-title">Pickle Powder</h5>
+            <div class="rating mb-2">
+              <i class="fas fa-star text-warning"></i>
+              <i class="fas fa-star text-warning"></i>
+              <i class="fas fa-star text-warning"></i>
+              <i class="fas fa-star text-warning"></i>
+              <i class="fas fa-star text-warning"></i>
+              <span>(5.0)</span>
+            </div>
+            <span class="price">₹145 <small>₹180</small></span>
+          </div>
+          <div class="card-actions">
+            <button class="btn-icon btn-cart" onclick="addToCart('Pickle Powder', 145, 'image22.jpg')">
+              <i class="fas fa-shopping-cart"></i>
+            </button>
+            <button class="btn-icon btn-wishlist" onclick="addToWishlist('Pickle Powder', 145, 'image22.jpg')">
+              <i class="fas fa-heart"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 10. Rasam Powder -->
+      <div class="col-lg-3 col-md-4 col-sm-6">
+        <div class="spice-card">
+          <img src="image23.jpg" alt="Rasam Powder" 
+               onerror="this.src='https://images.unsplash.com/photo-1615485290538-3a2c7f3a0b3d?q=80&w=1974&auto=format&fit=crop'">
+          <div class="card-body">
+            <h5 class="card-title">Rasam Powder</h5>
+            <div class="rating mb-2">
+              <i class="fas fa-star text-warning"></i>
+              <i class="fas fa-star text-warning"></i>
+              <i class="fas fa-star text-warning"></i>
+              <i class="fas fa-star text-warning"></i>
+              <i class="fas fa-star text-warning"></i>
+              <span>(5.0)</span>
+            </div>
+            <span class="price">₹145 <small>₹180</small></span>
+          </div>
+          <div class="card-actions">
+            <button class="btn-icon btn-cart" onclick="addToCart('Rasam Powder', 145, 'image23.jpg')">
+              <i class="fas fa-shopping-cart"></i>
+            </button>
+            <button class="btn-icon btn-wishlist" onclick="addToWishlist('Rasam Powder', 145, 'image23.jpg')">
+              <i class="fas fa-heart"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 11. Malvani Chicken Masala -->
+      <div class="col-lg-3 col-md-4 col-sm-6">
+        <div class="spice-card">
+          <img src="image24.jpg" alt="Malvani Chicken Masala"
+               onerror="this.src='https://images.unsplash.com/photo-1615485290538-3a2c7f3a0b3d?q=80&w=1974&auto=format&fit=crop'">
+          <div class="card-body">
+            <h5 class="card-title">Malvani Chicken Masala</h5>
+            <div class="rating mb-2">
+              <i class="fas fa-star text-warning"></i>
+              <i class="fas fa-star text-warning"></i>
+              <i class="fas fa-star text-warning"></i>
+              <i class="fas fa-star text-warning"></i>
+              <i class="fas fa-star text-warning"></i>
+              <span>(5.0)</span>
+            </div>
+            <span class="price">₹145 <small>₹180</small></span>
+          </div>
+          <div class="card-actions">
+            <button class="btn-icon btn-cart" onclick="addToCart('Malvani Chicken Masala', 145, 'image24.jpg')">
+              <i class="fas fa-shopping-cart"></i>
+            </button>
+            <button class="btn-icon btn-wishlist" onclick="addToWishlist('Malvani Chicken Masala', 145, 'image24.jpg')">
+              <i class="fas fa-heart"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 12. Chole Masala (duplicate, but keeping as is) -->
+      <div class="col-lg-3 col-md-4 col-sm-6">
+        <div class="spice-card">
+          <img src="image25.jpg" alt="Chole Masala"
+               onerror="this.src='https://images.unsplash.com/photo-1615485290538-3a2c7f3a0b3d?q=80&w=1974&auto=format&fit=crop'">
+          <div class="card-body">
+            <h5 class="card-title">Butter chicken Masala</h5>
+            <div class="rating mb-2">
+              <i class="fas fa-star text-warning"></i>
+              <i class="fas fa-star text-warning"></i>
+              <i class="fas fa-star text-warning"></i>
+              <i class="fas fa-star text-warning"></i>
+              <i class="fas fa-star text-warning"></i>
+              <span>(5.0)</span>
+            </div>
+            <span class="price">₹145 <small>₹180</small></span>
+          </div>
+          <div class="card-actions">
+            <button class="btn-icon btn-cart" onclick="addToCart('Chole Masala', 145, 'image25.jpg')">
+              <i class="fas fa-shopping-cart"></i>
+            </button>
+            <button class="btn-icon btn-wishlist" onclick="addToWishlist('Chole Masala', 145, 'image25.jpg')">
+              <i class="fas fa-heart"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div> <!-- row -->
+  </div> <!-- container -->
+</section>
+
+<!-- ==================== FOOTER ==================== -->
+<footer class="footer">
+  <div class="container">
+    <div class="row gy-5">
+      <!-- brand column -->
+      <div class="col-lg-4">
+        <h5><i class="fas fa-seedling me-2"></i>Pure Masala</h5>
+        <p style="color: #d4dbb8; margin-bottom: 1.8rem;">Bringing the authentic taste of Indian spices to your kitchen since 1952.</p>
+        <div class="social-icons">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-x-twitter"></i></a>
+          <a href="#"><i class="fab fa-pinterest"></i></a>
+        </div>
+      </div>
+
+      <!-- explore -->
+      <div class="col-lg-2 col-md-4">
+        <h5>Explore</h5>
+        <ul>
+          <li><a href="#"><i class="fas fa-chevron-right"></i>New Arrivals</a></li>
+          <li><a href="#"><i class="fas fa-chevron-right"></i>Special Masalas</a></li>
+          <li><a href="#"><i class="fas fa-chevron-right"></i>Gift Boxes</a></li>
+          <li><a href="#"><i class="fas fa-chevron-right"></i>Recipe blog</a></li>
+        </ul>
+      </div>
+
+      <!-- support -->
+      <div class="col-lg-2 col-md-4">
+        <h5>Support</h5>
+        <ul>
+          <li><a href="#"><i class="fas fa-chevron-right"></i>FAQs</a></li>
+          <li><a href="#"><i class="fas fa-chevron-right"></i>Shipping</a></li>
+          <li><a href="#"><i class="fas fa-chevron-right"></i>Contact Us</a></li>
+          <li><a href="#"><i class="fas fa-chevron-right"></i>Returns</a></li>
+        </ul>
+      </div>
+
+      <!-- contact -->
+      <div class="col-lg-4 col-md-4">
+        <h5>Contact</h5>
+        <div class="contact-item">
+          <i class="fas fa-phone-alt"></i> <span>+91 98765 43210</span>
+        </div>
+        <div class="contact-item">
+          <i class="fas fa-envelope"></i> <a href="mailto:hello@puremasala.com" style="color:#ece5cd;">hello@puremasala.com</a>
+        </div>
+        <div class="contact-item">
+          <i class="fas fa-map-marker-alt"></i> <span>Kochi, Kerala, India</span>
+        </div>
+        <div class="contact-item">
+          <i class="fas fa-clock"></i> <span>Mon – Sat, 9am – 7pm</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="copyright text-center">
+      © 2026 PURE MASALA · crafted with <i class="fas fa-heart"></i> in God’s own country · all rights reserved
+    </div>
+  </div>
+</footer>
+
+<!-- JavaScript (cart logic) -->
+<script>
+  // Initialize from localStorage
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+  let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+
+  function updateCounts() {
+    document.getElementById("cart-count").innerText = cart.length;
+    document.getElementById("wishlist-count").innerText = wishlist.length;
+  }
+
+  function addToCart(name, price, image) {
+    cart.push({ name, price, image: image || 'https://via.placeholder.com/60' });
+    localStorage.setItem("cart", JSON.stringify(cart));
+    updateCounts();
+    alert("🛒 " + name + " added to cart!");
+  }
+
+  function addToWishlist(name, price, image) {
+    wishlist.push({ name, price, image: image || 'https://via.placeholder.com/60' });
+    localStorage.setItem("wishlist", JSON.stringify(wishlist));
+    updateCounts();
+    alert("❤️ " + name + " added to wishlist!");
+  }
+
+  // initialise
+  updateCounts();
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
