@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pure Masala - Create Account</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <!-- Google Fonts (matching all pages) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(rgba(31, 79, 43, 0.8), rgba(20, 50, 20, 0.9)),
+                        url('https://images.unsplash.com/photo-1596040033229-a9821ebd058d?q=80&w=2070&auto=format&fit=crop') 
+                        no-repeat center center/cover;
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            padding: 20px;
+        }
+
+        /* Home Arrow Button */
+        .home-btn {
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            background: #eab53a;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #1f4f2b;
+            font-size: 1.5rem;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            border: 2px solid #fff2cf;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .home-btn:hover {
+            background: #1f5a2a;
+            color: #eab53a;
+            transform: scale(1.1) translateX(-5px);
+            border-color: #eab53a;
+        }
+
+        .home-btn:hover i {
+            transform: translateX(-3px);
+        }
+
+        .register-box {
+            background: rgba(255, 255, 255, 0.98);
+            width: 450px;
+            padding: 45px 40px;
+            border-radius: 40px 12px 40px 12px;
+            box-shadow: 0 25px 40px -12px #00000060;
+            border: 2px solid #fbe6b1;
+            text-align: center;
+            animation: fadeIn 0.5s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .logo {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: #1f4f2b;
+            font-family: 'Playfair Display', serif;
+            letter-spacing: 1.2px;
+            margin-bottom: 5px;
+            text-shadow: 2px 2px 0 #f0ddaa;
+        }
+
+        .logo i {
+            color: #eab53a;
+            margin-right: 8px;
+        }
+
+        .tagline {
+            font-size: 14px;
+            color: #5a715a;
+            margin-bottom: 20px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        h2 {
+            margin-bottom: 25px;
+            color: #1f4f2b;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            border-bottom: 3px solid #eab53a;
+            display: inline-block;
+            padding-bottom: 8px;
+        }
+
+        h2 i {
+            color: #eab53a;
+            margin-right: 8px;
+        }
+
+        .input-group {
+            text-align: left;
+            margin-bottom: 18px;
+        }
+
+        .input-group label {
+            font-weight: 600;
+            font-size: 14px;
+            color: #1f4f2b;
+            margin-bottom: 6px;
+            display: block;
+        }
+
+        .input-group label i {
+            color: #eab53a;
+            margin-right: 6px;
+            width: 18px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border-radius: 25px;
+            border: 2px solid #d0dbb8;
+            background: #fefcf8;
+            transition: 0.3s;
+            font-size: 0.95rem;
+        }
+
+        .input-group input:focus {
+            border-color: #eab53a;
+            box-shadow: 0 0 0 4px #faeec780;
+            outline: none;
+        }
+
+        .input-group input::placeholder {
+            color: #a1b59b;
+            font-size: 0.9rem;
+        }
+
+        .register-btn {
+            width: 100%;
+            padding: 14px;
+            background: #1f5a2a;
+            border: none;
+            border-radius: 60px;
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .register-btn:hover {
+            background: #eab53a;
+            color: #1f3f1f;
+            transform: scale(1.02);
+            border-color: #1f5a2a;
+        }
+
+        .register-btn i {
+            margin-right: 8px;
+        }
+
+        .extra-links {
+            margin-top: 20px;
+            font-size: 14px;
+        }
+
+        .extra-links p {
+            margin: 8px 0;
+            color: #4f6b4a;
+        }
+
+        .extra-links a {
+            color: #c43e2c;
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.2s;
+        }
+
+        .extra-links a:hover {
+            color: #eab53a;
+            text-decoration: underline;
+        }
+
+        .extra-links a i {
+            font-size: 0.8rem;
+            margin-left: 4px;
+        }
+
+        footer {
+            margin-top: 25px;
+            font-size: 12px;
+            color: #8a9a8a;
+            border-top: 1px solid #eeddaa;
+            padding-top: 15px;
+        }
+
+        /* Password strength indicator */
+        .password-strength {
+            height: 4px;
+            background: #e0e0e0;
+            border-radius: 2px;
+            margin-top: 8px;
+            overflow: hidden;
+        }
+
+        .strength-bar {
+            height: 100%;
+            width: 0%;
+            background: #ff4444;
+            transition: 0.3s;
+        }
+
+        /* SUCCESS MODAL */
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(30, 62, 30, 0.8);
+            backdrop-filter: blur(5px);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: #fff;
+            padding: 40px;
+            width: 380px;
+            border-radius: 40px 12px 40px 12px;
+            text-align: center;
+            animation: pop 0.3s ease;
+            border: 3px solid #eab53a;
+            box-shadow: 0 25px 40px -12px #1f4f2b;
+        }
+
+        @keyframes pop {
+            from { transform: scale(0.7); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .success-icon {
+            font-size: 4rem;
+            color: #1f5a2a;
+            margin-bottom: 15px;
+            background: #f0f7e6;
+            width: 90px;
+            height: 90px;
+            line-height: 90px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            border: 3px solid #eab53a;
+        }
+
+        .modal-content h3 {
+            color: #1f4f2b;
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .modal-content p {
+            color: #5a715a;
+            margin-bottom: 25px;
+            font-size: 1.1rem;
+        }
+
+        .modal button {
+            padding: 12px 35px;
+            border: none;
+            border-radius: 60px;
+            background: #1f5a2a;
+            color: #fff;
+            font-weight: 700;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .modal button:hover {
+            background: #eab53a;
+            color: #1f3f1f;
+            transform: scale(1.05);
+        }
+
+        /* Responsive */
+        @media (max-width: 500px) {
+            .register-box {
+                width: 100%;
+                padding: 30px 20px;
+            }
+            
+            .home-btn {
+                top: 20px;
+                left: 20px;
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+            
+            .modal-content {
+                width: 90%;
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Home Arrow Button -->
+    <a href="index.html" class="home-btn" title="Back to Home">
+        <i class="fas fa-arrow-left"></i>
+    </a>
+
+    <div class="register-box">
+        <div class="logo">
+            <i class="fas fa-seedling"></i> Pure Masala
+        </div>
+        <div class="tagline">Authentic Taste. Pure Quality. Since 1952</div>
+
+        <h2><i class="fas fa-user-plus"></i> Register</h2>
+
+        <form id="registerForm">
+            <div class="input-group">
+                <label><i class="fas fa-user"></i> Full Name</label>
+                <input type="text" id="fullName" placeholder="Enter your full name" required>
+            </div>
+
+            <div class="input-group">
+                <label><i class="fas fa-envelope"></i> Email Address</label>
+                <input type="email" id="email" placeholder="your@email.com" required>
+            </div>
+
+            <div class="input-group">
+                <label><i class="fas fa-key"></i> Password</label>
+                <input type="password" id="password" placeholder="Create a password" required>
+                <div class="password-strength">
+                    <div class="strength-bar" id="strengthBar"></div>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label><i class="fas fa-check-circle"></i> Confirm Password</label>
+                <input type="password" id="confirmPassword" placeholder="Confirm your password" required>
+            </div>
+
+            <button type="submit" class="register-btn">
+                <i class="fas fa-user-plus"></i> Create Account
+            </button>
+        </form>
+
+        <div class="extra-links">
+            <p>Already have an account? <a href="login.html">Login <i class="fas fa-arrow-right"></i></a></p>
+        </div>
+
+        <footer>
+            <i class="fas fa-copyright"></i> 2026 Pure Masala. All rights reserved.
+        </footer>
+    </div>
+
+    <!-- SUCCESS MODAL -->
+    <div class="modal" id="successModal">
+        <div class="modal-content">
+            <div class="success-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h3>Welcome!</h3>
+            <p>Account created successfully <i class="fas fa-smile" style="color: #eab53a;"></i></p>
+            <button onclick="closeModal()">
+                Continue <i class="fas fa-arrow-right ms-2"></i>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById("registerForm");
+        const modal = document.getElementById("successModal");
+        const password = document.getElementById("password");
+        const confirmPassword = document.getElementById("confirmPassword");
+        const strengthBar = document.getElementById("strengthBar");
+
+        // Password strength checker
+        password.addEventListener("input", function() {
+            const val = this.value;
+            let strength = 0;
+            
+            if (val.length >= 8) strength += 25;
+            if (val.match(/[a-z]+/)) strength += 25;
+            if (val.match(/[A-Z]+/)) strength += 25;
+            if (val.match(/[0-9]+/)) strength += 25;
+            
+            strengthBar.style.width = strength + "%";
+            
+            if (strength <= 25) {
+                strengthBar.style.background = "#ff4444";
+            } else if (strength <= 50) {
+                strengthBar.style.background = "#ffa700";
+            } else if (strength <= 75) {
+                strengthBar.style.background = "#ffd700";
+            } else {
+                strengthBar.style.background = "#00C851";
+            }
+        });
+
+        // Form submission
+        form.addEventListener("submit", function(e) {
+            e.preventDefault();
+            
+            // Validate passwords match
+            if (password.value !== confirmPassword.value) {
+                alert("❌ Passwords do not match!");
+                return;
+            }
+            
+            // Validate password strength
+            if (password.value.length < 6) {
+                alert("❌ Password must be at least 6 characters long!");
+                return;
+            }
+            
+            // Get form values
+            const name = document.getElementById("fullName").value;
+            const email = document.getElementById("email").value;
+            
+            // Here you would typically send data to server
+            console.log("Registration attempt:", { name, email });
+            
+            // Show success modal
+            modal.style.display = "flex";
+        });
+
+        function closeModal() {
+            modal.style.display = "none";
+            window.location.href = "index.html"; // redirect to home
+        }
+
+        // Close modal if clicking outside
+        window.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                modal.style.display = "none";
+                window.location.href = "index.html";
+            }
+        });
+
+        // Real-time password match validation (optional)
+        confirmPassword.addEventListener("input", function() {
+            if (this.value !== password.value) {
+                this.style.borderColor = "#ff4444";
+            } else {
+                this.style.borderColor = "#00C851";
+            }
+        });
+    </script>
+
+</body>
+</html>
